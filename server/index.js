@@ -12,7 +12,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Multer for PDF uploads
 const upload = multer({
   storage: multer.diskStorage({
     destination: os.tmpdir(),
@@ -54,7 +53,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// PDF ingestion endpoint
 app.post("/api/ingest", upload.single("file"), async (req, res) => {
   try {
     if (!req.file?.path) {

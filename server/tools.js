@@ -22,7 +22,6 @@ const getVectorStore = async () => {
   const pc = new PineconeClient({ apiKey });
   const index = pc.Index(indexName);
 
-  // This MUST match the embedding model used during ingestion
   const embeddings = new PineconeEmbeddings({
     model: "llama-text-embed-v2",
   });
@@ -40,10 +39,8 @@ export const searchKnowledgeBase = tool(
 
     const store = await getVectorStore();
 
-    // We fetch the top 10 most similar chunks
     const results = await store.similaritySearch(query, 10);
 
-    // For demo purposes
     results.forEach((r, i) => {
       console.log(`Result ${i + 1}:`, r.pageContent.slice(0, 200));
     });
